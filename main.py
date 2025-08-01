@@ -32,10 +32,20 @@ def main():
                 return
         screen.fill("black")
         updatable.update(dt)
+        
+        # Check collision between player and asteroids
         for asteroid in asteroids:
             if asteroid.collide(player1):
                 print("Game Over!")
                 return
+        
+        # Check collision between shots and asteroids
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collide(shot):
+                    shot.kill()
+                    asteroid.split()  # Split the asteroid instead of just killing it
+        
         for instance in drawable:
             instance.draw(screen)
         
